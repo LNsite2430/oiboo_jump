@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>oiboo jump maps</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-align: center;
+      background-color: #121212;
+      color: #e0e0e0;
+      margin: 50px;
+    }
+    #container {
+      background: #1f1f1f;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      padding: 40px;
+      display: inline-block;
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+    }
+    h1 {
+      color: #dbdbdb;
+    }
+    #code {
+      font-size: 36px;
+      margin: 20px;
+      padding: 15px;
+      border: 2px solid #dbdbdb;
+      display: inline-block;
+      background-color: #121212;
+      width: 320px;
+      text-align: center;
+      letter-spacing: 5px;
+      height: 50px;
+      font-weight: bold;
+      border-radius: 8px;
+      color: #dbdbdb;
+      transition: all 0.3s ease-in-out;
+    }
+    button {
+      font-size: 18px;
+      padding: 12px 20px;
+      background-color: #dbdbdb;
+      border: none;
+      cursor: pointer;
+      border-radius: 6px;
+      color: rgb(0, 0, 0);
+      box-shadow: 0 2px 5px rgba(187, 134, 252, 0.3);
+      transition: all 0.3s;
+      margin-top: 20px;
+    }
+    button:hover {
+      background-color: #c0c0c0;
+      box-shadow: 0 4px 10px rgba(136, 136, 136, 0.4);
+    }
+    #image-container {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 30px;
+    }
+    #image {
+      display: none;
+      border-radius: 12px;
+      width: 300px;
+      max-width: 100%;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+    #code-name {
+      position: absolute;
+      top: 20%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 24px;
+      font-weight: bold;
+      color: #fff;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    #code-info {
+      margin-top: 15px;
+      color: #dbdbdb;
+      font-size: 16px;
+      text-align: center;
+      font-weight: normal;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <h1>oiboo jump maps</h1>
+    <div id="code">----</div><br>
+    <button onclick="generateCode()">generate</button>
+    <div id="image-container">
+      <img id="image" src="" alt="image" />
+      <div id="code-name"></div>
+    </div>
+    <div id="code-info"></div>
+  </div>
+
+  <audio id="slotSound" src="slot-sound.mp3" preload="auto"></audio>
+
+  <script>
+    const predefinedCodes = [
+      { code: "DZ9P-T8B4", level: 1, name: "oiboo jump", info: "(Original)oiBoo uploaded." },
+      { code: "ERF2-QYPG", level: 2, name: "oiBoo Jump Consistency", info: "oiBoo uploaded." },
+      { code: "6E6Z-7S9K", level: 3, name: "oiBoo Jump Very Consistency", info: "oiBoo uploaded." },
+      { code: "SJKU-6KRB", level: 6, name: "oiBoo forced me to upload this", info: "PaskaSranjeKak uploaded." },
+      { code: "TZE5-1UJH", level: 7, name: "1000 oiBoo jumps", info: "oiTwo uploaded." },
+      { code: "3WGZ-KZE4", level: 8, name: "oiBoo!", info: "zeptosecond uploaded." },
+      { code: "7STV-P8UJ", level: 9, name: "not quite oiboo day", info: "3456 uploaded." },
+      { code: "NHAX-6GHU", level: 10, name: "Unhappy birthday oiboo", info: "sayamaninama5 uploaded." },
+      { code: "HF2R-EZYD", level: 11, name: "not quite oiboo day (ez)", info: "3456 uploaded." },
+      { code: "JBXS-43G7", level: 12, name: "oiBoo Jump Consistency Consistency", info: "oiBoo uploaded." },
+      { code: "QHVF-JGZE", level: 17, name: "what the hell is oiboo", info: "seilá 2 uploaded." },
+      { code: "JMHE-CU7X", level: 18, name: "Oiboo Jump Recreation", info: "iwannamaker15 uploaded." },
+      { code: "HU9W-49G3", level: 21, name: "oiBoo Patate chachenge", info: "JProropALT uploaded." },
+      { code: "S5SS-4ADK", level: 22, name: "oiBoo Jump", info: "1 uploaded." },
+      { code: "R4AY-WQBV", level: 23, name: "Oiboo love", info: "LNsite2430 uploaded." },
+      { code: "A1PM-HXYW", level: 24, name: "If LNsite creates oiboo jump", info: "LNsite2430 uploaded." },
+      { code: "A7EA-7P5K", level: 25, name: "oiBlue Jump", info: "oiBoo uploaded." },
+      { code: "EY8R-EXZQ", level: 26, name: "oiBoo Jump", info: "oiBoo Jump uploaded." },
+      { code: "AZMT-W3KC", level: 27, name: "LNsite challenge", info: "oiBoo Jump uploaded." },
+      { code: "E5CA-JEWB", level: 28, name: "oiBoo Jump TAS Drop", info: "oiBoo Jump uploaded." },
+      { code: "DBYU-PF18", level: 29, name: "its oiboojump how easy it is", info: "LNsite2430 uploaded." },
+      { code: "CSC1-67BG", level: 30, name: "I GOT ION MONTHLY MIX CELEBRATION", info: "oiTwo uploaded." },
+      { code: "JVNF-Y1C9", level: 31, name: "I Wanna KILL The koiMilia 3", info: "oiTwo uploaded." },
+      { code: "4ENG-5CM9", level: 32, name: "A BoneBuddies Graduation", info: "oiTwo uploaded." },
+      { code: "R6T2-8KAT", level: 33, name: "fRee recird for destructorthedseyre", info: "oiTwo uploaded." },
+      { code: "ZVFS-KFZ7", level: 34, name: "Happy thanksgiving", info: "oiTwo uploaded." },
+      { code: "MRM9-D8XU", level: 35, name: "Happy thanksgiving i am thankful fo", info: "oiTwo uploaded." },
+      { code: "W1GM-CMTV", level: 36, name: "familiar", info: "oiTwo uploaded." },
+    ];
+
+    function generateCode() {
+      const codeElement = document.getElementById('code');
+      const imageElement = document.getElementById('image');
+      const codeNameElement = document.getElementById('code-name');
+      const codeInfoElement = document.getElementById('code-info');
+      const slotSound = document.getElementById('slotSound');
+
+      let counter = 0;
+
+      slotSound.currentTime = 0;
+      slotSound.play();
+
+      let interval = setInterval(() => {
+        let tempCode = '';
+        for (let i = 0; i < 8; i++) {
+          if (i === 4) tempCode += '-';
+          tempCode += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'.charAt(Math.floor(Math.random() * 36));
+        }
+        codeElement.textContent = tempCode;
+        counter++;
+      }, 50);
+
+      setTimeout(() => {
+        clearInterval(interval);
+
+        slotSound.pause();
+        slotSound.currentTime = 0;
+
+        let finalCodeObj = predefinedCodes[Math.floor(Math.random() * predefinedCodes.length)];
+        codeElement.textContent = finalCodeObj.code;
+
+        imageElement.src = `images/level_${finalCodeObj.level}.png`;
+        imageElement.style.display = 'block';
+
+        codeNameElement.textContent = finalCodeObj.name;
+        codeInfoElement.textContent = finalCodeObj.info;
+      }, 4000);
+    }
+  </script>
+</body>
+</html>
